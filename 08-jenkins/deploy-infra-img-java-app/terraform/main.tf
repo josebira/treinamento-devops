@@ -8,7 +8,7 @@ data "http" "myip" {
 
 resource "aws_instance" "dev_img_deploy_jenkins" {
   ami                         = "ami-0d6806446a46f9b9c"
-  instance_type               = "t2.microe"
+  instance_type               = "t2.micro"
   key_name                    = "Ubuntu-dev-bira"
   associate_public_ip_address = true
   subnet_id                   = "subnet-08d1dcb60f40fe297"
