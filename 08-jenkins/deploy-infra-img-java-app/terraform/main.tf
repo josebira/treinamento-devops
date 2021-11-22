@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "sa-east-1"
 }
 
 data "http" "myip" {
@@ -7,9 +7,16 @@ data "http" "myip" {
 }
 
 resource "aws_instance" "dev_img_deploy_jenkins" {
-  ami           = "ami-09e67e426f25ce0d7"
-  instance_type = "t2.micro"
-  key_name      = "chave-jenkins"
+  ami                         = "ami-0d6806446a46f9b9c"
+  instance_type               = "t2.microe"
+  key_name                    = "Ubuntu-dev-bira"
+  associate_public_ip_address = true
+  subnet_id                   = "subnet-08d1dcb60f40fe297"
+  root_block_device {
+    delete_on_termination = true
+    encrypted             = true
+    volume_size           = 32
+  }
   tags = {
     Name = "dev_img_deploy_jenkins"
   }
@@ -19,6 +26,7 @@ resource "aws_instance" "dev_img_deploy_jenkins" {
 resource "aws_security_group" "acesso_jenkins_dev_img" {
   name        = "acesso_jenkins_dev_img"
   description = "acesso_jenkins_dev_img inbound traffic"
+  vpc_id      = "vpc-01a2749453ce92707"
 
   ingress = [
     {
